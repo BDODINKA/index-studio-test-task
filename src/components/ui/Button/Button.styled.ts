@@ -5,7 +5,7 @@ type StyledPropsType = {
   height?: string;
 };
 
-export const StyledBtn = styled.button<StyledPropsType>`
+export const BtnStyled = styled.button<StyledPropsType>`
   background: #ffffff;
   color: #00a0ab;
   font-size: 14px;

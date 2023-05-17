@@ -1,6 +1,16 @@
 import React, { FC, useEffect, useState } from "react";
 import { api, ResponsePostsType } from "../../core/api/api";
-import { Card } from "../../components/card/Card";
+import {
+  HeaderStyled,
+  HeaderWrapperStyled,
+} from "../../components/header/Header.styled";
+import { ChangeViewBtn } from "../../components/ui/ChangeViewBtn/ChangeViewBtn";
+import {
+  SectionStyled,
+  SectionWrapperStyled,
+} from "../../components/section/Section.styled";
+import { Posts } from "../../components/posts/Posts";
+import { PostsStatusBar } from "../../components/posts-status-bar/PostsStatusBar";
 
 export const PostsPage: FC = () => {
   const [posts, setPosts] = useState<ResponsePostsType[]>([]);
@@ -19,18 +29,22 @@ export const PostsPage: FC = () => {
   }, []);
 
   return (
-    <div>
-      {posts.map((el) => (
-        <Card
-          key={el.id}
-          images={["ssss", "ssss", "ssss", "ssss"]}
-          cost={el.price}
-          nameProduct={el.title}
-          city={el.address}
-          time={el.createdAt}
-          orientation={"horizontal"}
-        />
-      ))}
-    </div>
+    <>
+      <HeaderStyled>
+        <HeaderWrapperStyled>
+          <ChangeViewBtn isdisabled={false} />
+        </HeaderWrapperStyled>
+      </HeaderStyled>
+      <SectionStyled>
+        <SectionWrapperStyled>
+          <Posts posts={posts} orientation={"horizontal"} isdisabled={true} />
+        </SectionWrapperStyled>
+      </SectionStyled>
+      <SectionStyled>
+        <SectionWrapperStyled>
+          <PostsStatusBar isloading={false} />
+        </SectionWrapperStyled>
+      </SectionStyled>
+    </>
   );
 };
