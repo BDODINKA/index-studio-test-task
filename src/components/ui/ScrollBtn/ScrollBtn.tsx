@@ -11,7 +11,7 @@ type PropsType = {
 
 export const ScrollBtn: FC<PropsType> = ({ Icon, children, ...rest }) => {
   return (
-    <SvgContainer {...rest}>
+    <SvgContainer btntype={"scroll"} {...rest}>
       <Icon />
       {children}
     </SvgContainer>
