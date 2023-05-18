@@ -1,9 +1,13 @@
 import { instance } from "./apiConfig";
 
+type ParamsType = {
+  page: number;
+  size: number;
+};
 export const api = {
-  getPosts(pageCount: number) {
+  getPosts(params?: ParamsType) {
     return instance.get<ResponseType>(`items`, {
-      params: { page: pageCount, size: 20 },
+      params,
     });
   },
   async getPostId(id: number) {

@@ -8,5 +8,5 @@ export const HeaderWrapperStyled = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
-  padding: 32px 32px 0;
+  padding: 32px 32px 26px;
 `;

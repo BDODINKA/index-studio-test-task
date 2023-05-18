@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 type PropsType = {
-  isdisabled: boolean;
+  isdisabled?: boolean;
 };
 
 export const ChangeViewBtnStyled = styled.div<PropsType>`

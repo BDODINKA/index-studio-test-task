@@ -7,23 +7,37 @@ import { ChangeViewBtnStyled } from "./ChangeViewBtn.styled";
 type PropsType = {
   width?: number;
   height?: number;
-  active?: boolean;
-  isdisabled: boolean;
+  isdisabled?: boolean;
+  onClick: (orientation: "vertical" | "horizontal") => void;
+  orientation: "vertical" | "horizontal";
 };
 
-export const ChangeViewBtn: FC<PropsType> = ({ isdisabled, ...rest }) => {
+export const ChangeViewBtn: FC<PropsType> = ({
+  isdisabled,
+  onClick,
+  orientation,
+  ...rest
+}) => {
+  if (isdisabled) return <ChangeViewBtnStyled isdisabled={isdisabled} />;
+
   return (
-    <ChangeViewBtnStyled isdisabled={isdisabled}>
-      {!isdisabled && (
-        <>
-          <SvgContainer btntype={"change"} {...rest}>
-            <IconTile />
-          </SvgContainer>
-          <SvgContainer btntype={"change"} {...rest}>
-            <IconList />
-          </SvgContainer>
-        </>
-      )}
+    <ChangeViewBtnStyled>
+      <SvgContainer
+        btntype={"change"}
+        active={orientation === "vertical"}
+        {...rest}
+        onClick={() => onClick("vertical")}
+      >
+        <IconTile />
+      </SvgContainer>
+      <SvgContainer
+        btntype={"change"}
+        {...rest}
+        active={orientation === "horizontal"}
+        onClick={() => onClick("horizontal")}
+      >
+        <IconList />
+      </SvgContainer>
     </ChangeViewBtnStyled>
   );
 };

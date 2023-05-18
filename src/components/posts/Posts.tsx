@@ -6,7 +6,7 @@ import { ResponsePostsType } from "../../core/api/api";
 type PropsType = {
   posts: ResponsePostsType[];
   orientation: "horizontal" | "vertical";
-  isdisabled: boolean;
+  isdisabled?: boolean;
 };
 export const Posts: FC<PropsType> = ({ posts, orientation }) => {
   return (
