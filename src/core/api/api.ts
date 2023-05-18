@@ -1,4 +1,4 @@
-import { instance } from "./apiConfig";
+import { instance, instanceImg } from "./apiConfig";
 
 type ParamsType = {
   page: number;
@@ -13,6 +13,13 @@ export const api = {
   async getPostId(id: number) {
     return instance.get(`items/${id}`);
   },
+  async getImg() {
+    return instanceImg.get("photos", {
+      params: {
+        per_page: 80,
+      },
+    });
+  },
 };
 
 export type ResponseType = {
@@ -23,6 +30,7 @@ export type ResponseType = {
   pages: number;
 };
 export type ResponsePostsType = {
+  img: any;
   id: string;
   seen: boolean;
   price: number;
