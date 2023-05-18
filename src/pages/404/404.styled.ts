@@ -12,7 +12,7 @@ export const PageNotFoundStyled = styled.section`
   top: 50%;
   transform: translate(-50%, -50%);
 
-  &:nth-child(2) {
+  &:nth-child(1) {
     text-align: center;
   }
 `;

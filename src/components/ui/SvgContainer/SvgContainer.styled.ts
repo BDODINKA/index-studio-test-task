@@ -5,6 +5,7 @@ type PropsType = {
   height?: number;
   active?: boolean;
   btntype: "scroll" | "change" | "likeBtn";
+  isdisabled?: boolean;
 };
 
 export const SvgContainer = styled.button<PropsType>`
@@ -13,7 +14,7 @@ export const SvgContainer = styled.button<PropsType>`
   cursor: pointer;
   border: none;
   color: #8f8f8f;
-  background: transparent;
+  background: ${(props) => (props.isdisabled ? "black" : "transparent")};
 
   ${(props) =>
     props.btntype === "scroll" &&
@@ -31,7 +32,6 @@ export const SvgContainer = styled.button<PropsType>`
                 props.height ? `${props.height}px` : "100%"};
               width: ${(props) => (props.width ? `${props.width}px` : "100%")};
           `}
-
   ${(props) =>
     props.btntype === "change" &&
     css<PropsType>`
@@ -50,7 +50,6 @@ export const SvgContainer = styled.button<PropsType>`
         }
       }
     `}
-
   ${(props) =>
     props.btntype === "likeBtn" &&
     css<PropsType>`
@@ -61,5 +60,5 @@ export const SvgContainer = styled.button<PropsType>`
           fill: #a4a4a4;
         }
       }
-    `}
+    `};
 `;

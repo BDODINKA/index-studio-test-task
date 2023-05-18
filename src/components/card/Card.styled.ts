@@ -30,6 +30,13 @@ export const CardWrapper = styled.div<PropsType>`
 
 export const CardSlide = styled(SwiperSlide)<PropsType>`
   background: #e8e8e8;
+
+  & > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
   ${(props) =>
     props.orientation === "vertical" &&
     css`

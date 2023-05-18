@@ -14,12 +14,14 @@ import { ScrollBtn } from "../../components/ui/ScrollBtn/ScrollBtn";
 import { useFetchData } from "../../core/hooks/useFetchData";
 
 export const PostsPage: FC = () => {
-  const { posts, totalPosts, isLoading, error, showMoreHandler } =
+  const { posts, finishPages, isLoading, error, showMoreHandler } =
     useFetchData();
 
   const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
     "vertical"
   );
+
+  // if (posts.length === 0) redirectTo("/404");
 
   return (
     <>
@@ -30,7 +32,7 @@ export const PostsPage: FC = () => {
       </HeaderStyled>
       <SectionStyled>
         <SectionWrapperStyled>
-          <Posts posts={posts} orientation={orientation} />
+          <Posts posts={posts} orientation={orientation} isdisabled={true} />
           <ScrollBtn />
         </SectionWrapperStyled>
       </SectionStyled>
@@ -40,7 +42,7 @@ export const PostsPage: FC = () => {
             isloading={isLoading}
             error={error}
             onClick={showMoreHandler}
-            finishPosts={posts.length === totalPosts}
+            finishPosts={finishPages}
           />
         </SectionWrapperStyled>
       </SectionStyled>

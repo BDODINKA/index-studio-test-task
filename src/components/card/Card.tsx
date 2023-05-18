@@ -25,6 +25,7 @@ type CardPropsType = {
   active?: boolean;
   time?: string;
   orientation: "horizontal" | "vertical";
+  isdisabled?: boolean;
 };
 
 export const Card: FC<CardPropsType> = ({
@@ -35,27 +36,30 @@ export const Card: FC<CardPropsType> = ({
   city,
   time,
   orientation,
+  isdisabled,
 }) => {
+  console.log(images);
   return (
     <CardWrapper orientation={orientation}>
       <Swiper
         pagination={{
           clickable: true,
         }}
+        slidesPerGroup={1}
         modules={[Pagination]}
         className="mySwiper"
       >
         {images &&
           images.map((el, i) => (
             <CardSlide key={`${el + i}`} orientation={orientation}>
-              {el}
+              <img src={el} alt="some-pictures" />
             </CardSlide>
           ))}
       </Swiper>
       <CardProduct orientation={orientation}>
         <CardCostContainer>
           <TitleStyled size={"lg"} children={cost} />
-          <LikeBtn Icon={LikeIcon} isLiked={isLiked} />
+          <LikeBtn Icon={LikeIcon} isLiked={isLiked} isdisabled={isdisabled} />
         </CardCostContainer>
         <TitleStyled size={"sm"} children={nameProduct} />
         <CardPlaceContainer>
