@@ -30,7 +30,7 @@ export type ResponseType = {
   pages: number;
 };
 export type ResponsePostsType = {
-  img: any;
+  img: string[];
   id: string;
   seen: boolean;
   price: number;
