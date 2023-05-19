@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Card } from "../card/Card";
 import { PostsStyled } from "./Posts.styled";
 import { ResponsePostsType } from "../../core/api/api";
+import { useDataCard } from "../../core/hooks/useRouter";
 
 type PropsType = {
   posts: ResponsePostsType[];
@@ -9,6 +10,8 @@ type PropsType = {
   isdisabled?: boolean;
 };
 export const Posts: FC<PropsType> = ({ posts, isdisabled, orientation }) => {
+  const { setUrlsCardParams } = useDataCard();
+
   return (
     <PostsStyled orientation={orientation}>
       {posts.map((el) => (
@@ -21,6 +24,18 @@ export const Posts: FC<PropsType> = ({ posts, isdisabled, orientation }) => {
           time={el.createdAt}
           orientation={orientation}
           isdisabled={isdisabled}
+          id={el.id}
+          seen={el.seen}
+          onClick={() =>
+            setUrlsCardParams({
+              id: el.id,
+              nameProduct: el.title,
+              city: el.address,
+              time: el.createdAt,
+              images: el.img,
+              cost: el.price,
+            })
+          }
         />
       ))}
     </PostsStyled>

@@ -21,8 +21,6 @@ export const PostsPage: FC = () => {
     "vertical"
   );
 
-  // if (posts.length === 0) redirectTo("/404");
-
   return (
     <>
       <HeaderStyled>

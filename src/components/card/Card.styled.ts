@@ -9,6 +9,8 @@ export const CardWrapper = styled.div<PropsType>`
   filter: drop-shadow(0px 0px 16px rgba(0, 0, 0, 0.08));
   border-radius: 12px;
   overflow: hidden;
+  position: relative;
+  cursor: pointer;
 
   ${(props) =>
     props.orientation === "vertical" &&

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, SyntheticEvent, useEffect, useState } from "react";
 import {
   CardCostContainer,
   CardPlaceContainer,
@@ -15,32 +15,56 @@ import { TitleStyled } from "../ui/Title/Title.styled";
 import { LikeBtn } from "../ui/LikeBtn/LikeBtn";
 import { ReactComponent as LikeIcon } from "../../assets/svg/IconLike.svg";
 import { SubTitleStyled } from "../ui/SubTitle/SubTitle.styled";
+import { StickViewed } from "../ui/StickViewed/StickViewed";
 
 type CardPropsType = {
   images?: string[];
   cost?: number;
-  isLiked?: boolean;
   nameProduct?: string;
   city?: string;
   active?: boolean;
+  seen?: boolean;
   time?: string;
   orientation: "horizontal" | "vertical";
   isdisabled?: boolean;
+  onClick?: () => void;
+  id: string;
 };
 
 export const Card: FC<CardPropsType> = ({
   images,
   cost,
-  isLiked,
   nameProduct,
   city,
   time,
   orientation,
   isdisabled,
+  id,
+  seen,
 }) => {
-  console.log(images);
+  const [like, setLike] = useState(false);
+
+  useEffect(() => {
+    const likeId = localStorage.getItem(`like:${id}`);
+    if (likeId === id) {
+      setLike(true);
+    }
+  }, []);
+
+  const likeHandler = (event: SyntheticEvent) => {
+    event.stopPropagation();
+    if (like) {
+      localStorage.removeItem(`like:${id}`);
+      setLike(false);
+    } else {
+      localStorage.setItem(`like:${id}`, id);
+      setLike(true);
+    }
+  };
+  console.log(seen);
   return (
     <CardWrapper orientation={orientation}>
+      {seen && <StickViewed children={"Просмотрено"} />}
       <Swiper
         pagination={{
           clickable: true,
@@ -59,7 +83,12 @@ export const Card: FC<CardPropsType> = ({
       <CardProduct orientation={orientation}>
         <CardCostContainer>
           <TitleStyled size={"lg"} children={cost} />
-          <LikeBtn Icon={LikeIcon} isLiked={isLiked} isdisabled={isdisabled} />
+          <LikeBtn
+            Icon={LikeIcon}
+            isLiked={like}
+            isdisabled={isdisabled}
+            onClick={(event) => likeHandler(event)}
+          />
         </CardCostContainer>
         <TitleStyled size={"sm"} children={nameProduct} />
         <CardPlaceContainer>
