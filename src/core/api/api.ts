@@ -1,41 +1,20 @@
 import { instance, instanceImg } from "./apiConfig";
+import { CardType } from "../types/CardType";
+import { ResponseCardType, ResponseImgType } from "../types/ResponceType";
+import { CardParamsType, ImgParamsType } from "../types/ParamsType";
 
-type ParamsType = {
-  page: number;
-  size: number;
-};
 export const api = {
-  getPosts(params?: ParamsType) {
-    return instance.get<ResponseType>(`items`, {
-      params,
-    });
+  getPosts(params?: CardParamsType) {
+    return instance
+      .get<ResponseCardType>(`items`, {
+        params,
+      })
+      .then((res) => res.data);
   },
-  async getPostId(id: number) {
-    return instance.get(`items/${id}`);
+  async getPostId(id: string) {
+    return instance.get<CardType>(`items/${id}`).then((res) => res.data);
   },
-  async getImg() {
-    return instanceImg.get("photos", {
-      params: {
-        per_page: 80,
-      },
-    });
+  async getImg(params: ImgParamsType) {
+    return instanceImg.get<ResponseImgType[]>("photos", { params });
   },
-};
-
-export type ResponseType = {
-  items: ResponsePostsType[];
-  total: number;
-  page: number;
-  size: number;
-  pages: number;
-};
-export type ResponsePostsType = {
-  img: string[];
-  id: string;
-  seen: boolean;
-  price: number;
-  title: string;
-  address: string;
-  about: string;
-  createdAt: string;
 };

@@ -1,13 +1,11 @@
 import React, { FC, SyntheticEvent, useEffect, useState } from "react";
 import {
   CardCostContainer,
+  CardNameProductContainer,
   CardPlaceContainer,
   CardProduct,
-  CardSlide,
   CardWrapper,
 } from "./Card.styled";
-import { Swiper } from "swiper/react";
-import { Pagination } from "swiper";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -15,41 +13,22 @@ import { TitleStyled } from "../ui/Title/Title.styled";
 import { LikeBtn } from "../ui/LikeBtn/LikeBtn";
 import { ReactComponent as LikeIcon } from "../../assets/svg/IconLike.svg";
 import { SubTitleStyled } from "../ui/SubTitle/SubTitle.styled";
-import { StickViewed } from "../ui/StickViewed/StickViewed";
+import { useParamsUrl } from "../../core/hooks/useParamsUrl";
+import { CardPropsType } from "../../core/types/CardType";
+import { CardSwiper } from "./CardSwiper";
 
-type CardPropsType = {
-  images?: string[];
-  cost?: number;
-  nameProduct?: string;
-  city?: string;
-  active?: boolean;
-  seen?: boolean;
-  time?: string;
-  orientation: "horizontal" | "vertical";
-  isdisabled?: boolean;
-  onClick?: () => void;
-  id: string;
-};
-
-export const Card: FC<CardPropsType> = ({
-  images,
-  cost,
-  nameProduct,
-  city,
-  time,
-  orientation,
-  isdisabled,
-  id,
-  seen,
-}) => {
+export const Card: FC<CardPropsType> = ({ orientation, isdisabled, data }) => {
   const [like, setLike] = useState(false);
+  const { setUrlsCardParams } = useParamsUrl();
+
+  const { id, seen, address, title, img, createdAt, price } = data;
 
   useEffect(() => {
     const likeId = localStorage.getItem(`like:${id}`);
     if (likeId === id) {
       setLike(true);
     }
-  }, []);
+  }, [id]);
 
   const likeHandler = (event: SyntheticEvent) => {
     event.stopPropagation();
@@ -61,39 +40,33 @@ export const Card: FC<CardPropsType> = ({
       setLike(true);
     }
   };
-  console.log(seen);
+
+  const onClickOpenCard = () => {
+    setUrlsCardParams({ id, img });
+  };
+
   return (
     <CardWrapper orientation={orientation}>
-      {seen && <StickViewed children={"Просмотрено"} />}
-      <Swiper
-        pagination={{
-          clickable: true,
-        }}
-        slidesPerGroup={1}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
-        {images &&
-          images.map((el, i) => (
-            <CardSlide key={`${el + i}`} orientation={orientation}>
-              <img src={el} alt="some-pictures" />
-            </CardSlide>
-          ))}
-      </Swiper>
-      <CardProduct orientation={orientation}>
-        <CardCostContainer>
-          <TitleStyled size={"lg"} children={cost} />
-          <LikeBtn
-            Icon={LikeIcon}
-            isLiked={like}
-            isdisabled={isdisabled}
-            onClick={(event) => likeHandler(event)}
-          />
+      <CardSwiper
+        seen={seen}
+        orientation={orientation}
+        isdisabled={isdisabled}
+        img={img}
+      />
+      <CardProduct orientation={orientation} onClick={onClickOpenCard}>
+        <CardCostContainer isdisabled={isdisabled} orientation={orientation}>
+          <TitleStyled size={"lg"} children={price} />
+          <LikeBtn Icon={LikeIcon} isLiked={like} onClick={likeHandler} />
         </CardCostContainer>
-        <TitleStyled size={"sm"} children={nameProduct} />
-        <CardPlaceContainer>
-          <SubTitleStyled size={"sm"} children={city} />
-          <SubTitleStyled size={"sm"} children={time} />
+        <CardNameProductContainer
+          isdisabled={isdisabled}
+          orientation={orientation}
+        >
+          <TitleStyled size={"sm"} children={title} />
+        </CardNameProductContainer>
+        <CardPlaceContainer isdisabled={isdisabled} orientation={orientation}>
+          <SubTitleStyled size={"sm"} children={address} />
+          <SubTitleStyled size={"sm"} children={createdAt} />
         </CardPlaceContainer>
       </CardProduct>
     </CardWrapper>

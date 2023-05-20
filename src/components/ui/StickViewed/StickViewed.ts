@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-type StyledPropsType = {};
-
-export const StickViewed = styled.span<StyledPropsType>`
+export const StickViewed = styled.span`
   position: absolute;
   font-family: "Ubuntu", sans-serif;
   font-style: normal;
@@ -17,9 +15,9 @@ export const StickViewed = styled.span<StyledPropsType>`
   display: flex;
   align-items: center;
   justify-content: center;
+  top: 11px;
   left: 50%;
-  transform: translate(-50%, 11px);
-
+  transform: translate(-50%, 0);
   background: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
 `;

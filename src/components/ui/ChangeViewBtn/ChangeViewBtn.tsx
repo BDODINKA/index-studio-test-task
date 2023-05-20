@@ -3,13 +3,14 @@ import { SvgContainer } from "../SvgContainer/SvgContainer.styled";
 import { ReactComponent as IconTile } from "../../../assets/svg/tile.svg";
 import { ReactComponent as IconList } from "../../../assets/svg/list.svg";
 import { ChangeViewBtnStyled } from "./ChangeViewBtn.styled";
+import { OrientationType } from "../../../core/types/CardType";
 
 type PropsType = {
   width?: number;
   height?: number;
   isdisabled?: boolean;
-  onClick: (orientation: "vertical" | "horizontal") => void;
-  orientation: "vertical" | "horizontal";
+  onClick: (orientation: OrientationType) => void;
+  orientation: OrientationType;
 };
 
 export const ChangeViewBtn: FC<PropsType> = ({

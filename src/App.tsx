@@ -1,36 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { PostsPage } from "./pages/PostsPage/PostsPage";
 import { PostPage } from "./pages/PostPage/PostPage";
 import { PageNotFound } from "./pages/404/404";
+import { useRouter } from "./core/hooks/useRouter";
 
 export const App = () => {
-  const [route, setRoute] = useState(window.location.pathname);
+  const { route } = useRouter();
 
-  useEffect(() => {
-    const handleRouteChange = () => {
-      setRoute(window.location.pathname);
-    };
-    window.addEventListener("popstate", handleRouteChange);
-
-    return () => {
-      window.removeEventListener("popstate", handleRouteChange);
-    };
-  }, []);
-
-  let Page;
+  let page;
 
   switch (route) {
     case "/":
-      Page = <PostsPage />;
+      page = <PostsPage />;
       break;
     case "/card":
-      Page = <PostPage />;
+      page = <PostPage />;
       break;
     case "/404":
-      Page = <PageNotFound />;
+      page = <PageNotFound />;
       break;
     default:
-      Page = <PostsPage />;
+      page = <PostsPage />;
   }
-  return Page;
+  return page;
 };

@@ -1,9 +1,12 @@
 import styled, { css } from "styled-components";
-import { SwiperSlide } from "swiper/react";
+import { Swiper, SwiperProps, SwiperSlide } from "swiper/react";
+import { OrientationType } from "../../core/types/CardType";
 
 type PropsType = {
-  orientation: "horizontal" | "vertical";
+  orientation?: OrientationType;
+  isdisabled?: boolean;
 };
+
 export const CardWrapper = styled.div<PropsType>`
   background: #ffffff;
   filter: drop-shadow(0px 0px 16px rgba(0, 0, 0, 0.08));
@@ -14,13 +17,13 @@ export const CardWrapper = styled.div<PropsType>`
 
   ${(props) =>
     props.orientation === "vertical" &&
-    css`
+    css<PropsType>`
       width: 224px;
       height: 364px;
     `}
   ${(props) =>
     props.orientation === "horizontal" &&
-    css`
+    css<PropsType>`
       display: flex;
       width: 472px;
       height: 134px;
@@ -30,7 +33,41 @@ export const CardWrapper = styled.div<PropsType>`
   }
 `;
 
-export const CardSlide = styled(SwiperSlide)<PropsType>`
+export const CardSwiperStyled = styled(Swiper)<PropsType, SwiperProps>`
+  ${(props) =>
+    props.orientation === "vertical" &&
+    css<PropsType>`
+      height: 260px;
+      width: 100%;
+    `}
+
+  ${(props) =>
+    props.orientation === "horizontal" &&
+    css<PropsType>`
+      height: 100%;
+      width: 156px;
+    `}
+
+  background: ${(props) => (props.isdisabled ? "#EAEAEA" : "transparent")};
+
+  ${(props) =>
+    props.isdisabled &&
+    css`
+      :after {
+        content: "";
+        position: absolute;
+        width: 56px;
+        height: 8px;
+        left: 50%;
+        bottom: 9px;
+        transform: translate(-50%, 0);
+        background: #f8f8f8;
+        border-radius: 3px;
+      }
+    `}
+`;
+
+export const CardSlide = styled(SwiperSlide)`
   background: #e8e8e8;
 
   & > img {
@@ -38,20 +75,6 @@ export const CardSlide = styled(SwiperSlide)<PropsType>`
     height: 100%;
     object-fit: cover;
   }
-
-  ${(props) =>
-    props.orientation === "vertical" &&
-    css`
-      height: 260px;
-      width: 100%;
-    `}
-
-  ${(props) =>
-    props.orientation === "horizontal" &&
-    css`
-      height: 100%;
-      width: 156px;
-    `}
 `;
 
 export const CardProduct = styled.div<PropsType>`
@@ -60,6 +83,7 @@ export const CardProduct = styled.div<PropsType>`
   text-align: center;
   padding: 10px 12px 19px;
   gap: 10px;
+  background: #f8f8f8;
   ${(props) =>
     props.orientation === "horizontal" &&
     css`
@@ -75,15 +99,133 @@ export const CardProduct = styled.div<PropsType>`
     `}
 `;
 
-export const CardCostContainer = styled.div`
+export const CardCostContainer = styled.div<PropsType>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-right: 3px;
+
+  ${(props) =>
+    props.isdisabled &&
+    css<PropsType>`
+      & > h3,
+      button {
+        position: relative;
+        width: ${(props) =>
+          props.orientation === "horizontal" ? "256px" : "165px"};
+        height: 25px;
+        visibility: hidden;
+      }
+
+      & > button {
+        width: 25px;
+      }
+
+      :before {
+        content: "";
+        position: absolute;
+        visibility: visible;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #eaeaea;
+        border-radius: 8px;
+      }
+    `}
 `;
 
-export const CardPlaceContainer = styled.div`
+export const CardNameProductContainer = styled.div<PropsType>`
+  ${(props) =>
+    props.isdisabled &&
+    css<PropsType>`
+      width: 100%;
+      height: 100%;
+      background: #eaeaea;
+      border-radius: 6px;
+
+      ${(props) =>
+        props.orientation === "horizontal" &&
+        css<PropsType>`
+          visibility: hidden;
+          position: relative;
+          height: 40px;
+
+          & :before {
+            content: "";
+            position: absolute;
+            visibility: visible;
+            width: 100%;
+            height: 16px;
+            top: 0;
+            background: #eaeaea;
+            border-radius: 8px;
+            bottom: 20px;
+          }
+
+          & :after {
+            content: "";
+            position: absolute;
+            visibility: visible;
+            width: 116px;
+            height: 16px;
+            top: 24px;
+            left: 0;
+            bottom: 0;
+            background: #eaeaea;
+            border-radius: 8px;
+          }
+        `}
+      ${(props) =>
+        props.orientation === "vertical" &&
+        css<PropsType>`
+          height: 16px;
+        `}
+    `}
+}
+`;
+
+export const CardPlaceContainer = styled.div<PropsType>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${(props) =>
+    props.isdisabled &&
+    css<PropsType>`
+      width: 200px;
+      height: 14px;
+      background: #eaeaea;
+      border-radius: 6px;
+      ${(props) =>
+        props.orientation === "horizontal" &&
+        css<PropsType>`
+          visibility: hidden;
+          position: relative;
+          width: 100%;
+
+          & :nth-child(1):before {
+            content: "";
+            position: absolute;
+            visibility: visible;
+            width: 177px;
+            height: 14px;
+            left: 0;
+            bottom: 0;
+            background: #eaeaea;
+            border-radius: 8px;
+          }
+
+          & :nth-child(1):after {
+            content: "";
+            position: absolute;
+            visibility: visible;
+            width: 107px;
+            height: 14px;
+            right: 0;
+            bottom: 0;
+            background: #eaeaea;
+            border-radius: 8px;
+          }
+        `}
+    `}
 `;

@@ -5,7 +5,6 @@ type PropsType = {
   height?: number;
   active?: boolean;
   btntype: "scroll" | "change" | "likeBtn";
-  isdisabled?: boolean;
 };
 
 export const SvgContainer = styled.button<PropsType>`
@@ -14,7 +13,7 @@ export const SvgContainer = styled.button<PropsType>`
   cursor: pointer;
   border: none;
   color: #8f8f8f;
-  background: ${(props) => (props.isdisabled ? "black" : "transparent")};
+  background: transparent;
 
   ${(props) =>
     props.btntype === "scroll" &&

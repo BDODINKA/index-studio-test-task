@@ -1,26 +1,22 @@
-import React from "react";
-import { useDataCard } from "../../core/hooks/useRouter";
+import React, { useEffect, useState } from "react";
+import { useFetchPost } from "../../core/hooks/useFetchPost";
 import { Card } from "../../components/card/Card";
-import { Spinner } from "../../components/ui/Spinner/Spinner.styled";
+import { CardType } from "../../core/types/CardType";
+import { useParamsUrl } from "../../core/hooks/useParamsUrl";
 
 export const PostPage = () => {
-  const { cardData } = useDataCard();
+  const { post, setId } = useFetchPost();
+  const [data, setData] = useState<CardType>({} as CardType);
+  const { params } = useParamsUrl();
 
-  const { id, nameProduct, city, time, images, cost } = cardData;
-  console.log(images);
+  useEffect(() => {
+    params.id && setId(params.id);
+    params.img && post && setData({ ...post, img: params.img });
+  }, [post, setId, params]);
 
-  if (!images) return <Spinner />;
-  return (
-    <div>
-      <Card
-        nameProduct={nameProduct}
-        orientation={"vertical"}
-        cost={+cost}
-        city={city}
-        images={images}
-        time={time}
-        id={id}
-      />
-    </div>
-  );
+  if (!post) {
+    return <Card data={data} orientation={"vertical"} isdisabled={true} />;
+  }
+
+  return <Card data={data} orientation={"vertical"} isdisabled={false} />;
 };

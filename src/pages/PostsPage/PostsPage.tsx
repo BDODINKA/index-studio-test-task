@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   HeaderStyled,
   HeaderWrapperStyled,
@@ -12,25 +12,40 @@ import { Posts } from "../../components/posts/Posts";
 import { PostsStatusBar } from "../../components/posts-status-bar/PostsStatusBar";
 import { ScrollBtn } from "../../components/ui/ScrollBtn/ScrollBtn";
 import { useFetchData } from "../../core/hooks/useFetchData";
+import { OrientationType } from "../../core/types/CardType";
 
 export const PostsPage: FC = () => {
   const { posts, finishPages, isLoading, error, showMoreHandler } =
     useFetchData();
 
-  const [orientation, setOrientation] = useState<"horizontal" | "vertical">(
-    "vertical"
-  );
+  const [orientation, setOrientation] = useState<OrientationType>("vertical");
+
+  useEffect(() => {
+    const orientation = localStorage.getItem("orientation");
+    if (orientation) {
+      setOrientation(orientation as OrientationType);
+    }
+  }, []);
+
+  const changeOrientationHandler = (orientation: OrientationType) => {
+    setOrientation(orientation);
+    localStorage.setItem("orientation", orientation);
+  };
 
   return (
     <>
       <HeaderStyled>
         <HeaderWrapperStyled>
-          <ChangeViewBtn onClick={setOrientation} orientation={orientation} />
+          <ChangeViewBtn
+            onClick={changeOrientationHandler}
+            orientation={orientation}
+            isdisabled={!posts}
+          />
         </HeaderWrapperStyled>
       </HeaderStyled>
       <SectionStyled>
         <SectionWrapperStyled>
-          <Posts posts={posts} orientation={orientation} isdisabled={true} />
+          <Posts posts={posts} orientation={orientation} isdisabled={!posts} />
           <ScrollBtn />
         </SectionWrapperStyled>
       </SectionStyled>
