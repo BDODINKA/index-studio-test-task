@@ -18,7 +18,7 @@ export const CardSwiper: FC<{
       slidesPerGroup={1}
       modules={[Pagination]}
       className="mySwiper"
-      isdisabled={isdisabled}
+      $isdisabled={isdisabled}
       orientation={orientation}
     >
       {seen && <StickViewed children={"Просмотрено"} />}

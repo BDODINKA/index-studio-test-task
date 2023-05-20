@@ -14,14 +14,14 @@ type PropsType = {
 };
 
 export const PostsStatusBar: FC<PropsType> = ({
-  isloading,
   error,
   onClick,
   finishPosts,
+  isloading,
 }) => {
   if (isloading)
     return (
-      <PostsStatusBarStyled isLoading={isloading}>
+      <PostsStatusBarStyled $isloading={isloading}>
         <Spinner />
       </PostsStatusBarStyled>
     );

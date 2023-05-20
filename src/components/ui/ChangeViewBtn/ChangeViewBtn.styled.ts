@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 type PropsType = {
-  isdisabled?: boolean;
+  $isdisabled?: boolean;
 };
 
 export const ChangeViewBtnStyled = styled.div<PropsType>`
@@ -9,7 +9,7 @@ export const ChangeViewBtnStyled = styled.div<PropsType>`
   gap: 18px;
 
   ${(props) =>
-    props.isdisabled &&
+    props.$isdisabled &&
     css`
       background: #eaeaea;
       border-radius: 8px;

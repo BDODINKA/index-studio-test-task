@@ -5,7 +5,7 @@ import { imgMultiplier } from "../utils/imgMultiplier";
 
 export const useFetchData = () => {
   const [finishPages, setFinishPages] = useState(false);
-  const [posts, setPosts] = useState<CardType[]>([]);
+  const [posts, setPosts] = useState<CardType[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [params, setParams] = useState({ page: 1, size: 20 });
@@ -28,7 +28,7 @@ export const useFetchData = () => {
           img: result[i],
         }));
 
-        setPosts([...posts, ...resPosts]);
+        setPosts(resPosts);
 
         if (res[0].pages === params.page) {
           setFinishPages(true);
@@ -50,5 +50,11 @@ export const useFetchData = () => {
     setParams({ ...params, page: params.page + 1 });
   };
 
-  return { posts, isLoading, error, showMoreHandler, finishPages };
+  return {
+    posts,
+    isLoading,
+    error,
+    showMoreHandler,
+    finishPages,
+  };
 };

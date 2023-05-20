@@ -4,7 +4,7 @@ import { OrientationType } from "../../core/types/CardType";
 
 type PropsType = {
   orientation?: OrientationType;
-  isdisabled?: boolean;
+  $isdisabled: boolean;
 };
 
 export const CardWrapper = styled.div<PropsType>`
@@ -48,10 +48,10 @@ export const CardSwiperStyled = styled(Swiper)<PropsType, SwiperProps>`
       width: 156px;
     `}
 
-  background: ${(props) => (props.isdisabled ? "#EAEAEA" : "transparent")};
+  background: ${(props) => (props.$isdisabled ? "#EAEAEA" : "transparent")};
 
   ${(props) =>
-    props.isdisabled &&
+    props.$isdisabled &&
     css`
       :after {
         content: "";
@@ -106,7 +106,7 @@ export const CardCostContainer = styled.div<PropsType>`
   padding-right: 3px;
 
   ${(props) =>
-    props.isdisabled &&
+    props.$isdisabled &&
     css<PropsType>`
       & > h3,
       button {
@@ -137,7 +137,7 @@ export const CardCostContainer = styled.div<PropsType>`
 
 export const CardNameProductContainer = styled.div<PropsType>`
   ${(props) =>
-    props.isdisabled &&
+    props.$isdisabled &&
     css<PropsType>`
       width: 100%;
       height: 100%;
@@ -190,7 +190,7 @@ export const CardPlaceContainer = styled.div<PropsType>`
   justify-content: space-between;
   align-items: center;
   ${(props) =>
-    props.isdisabled &&
+    props.$isdisabled &&
     css<PropsType>`
       width: 200px;
       height: 14px;

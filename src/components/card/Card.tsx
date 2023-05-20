@@ -46,25 +46,29 @@ export const Card: FC<CardPropsType> = ({ orientation, isdisabled, data }) => {
   };
 
   return (
-    <CardWrapper orientation={orientation}>
+    <CardWrapper orientation={orientation} $isdisabled={isdisabled}>
       <CardSwiper
         seen={seen}
         orientation={orientation}
         isdisabled={isdisabled}
         img={img}
       />
-      <CardProduct orientation={orientation} onClick={onClickOpenCard}>
-        <CardCostContainer isdisabled={isdisabled} orientation={orientation}>
+      <CardProduct
+        orientation={orientation}
+        onClick={onClickOpenCard}
+        $isdisabled={isdisabled}
+      >
+        <CardCostContainer $isdisabled={isdisabled} orientation={orientation}>
           <TitleStyled size={"lg"} children={price} />
           <LikeBtn Icon={LikeIcon} isLiked={like} onClick={likeHandler} />
         </CardCostContainer>
         <CardNameProductContainer
-          isdisabled={isdisabled}
+          $isdisabled={isdisabled}
           orientation={orientation}
         >
           <TitleStyled size={"sm"} children={title} />
         </CardNameProductContainer>
-        <CardPlaceContainer isdisabled={isdisabled} orientation={orientation}>
+        <CardPlaceContainer $isdisabled={isdisabled} orientation={orientation}>
           <SubTitleStyled size={"sm"} children={address} />
           <SubTitleStyled size={"sm"} children={createdAt} />
         </CardPlaceContainer>

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
 type PropsType = {
-  isLoading?: boolean;
+  $isloading?: boolean;
   error?: boolean;
 };
 
@@ -12,7 +12,7 @@ export const PostsStatusBarStyled = styled.div<PropsType>`
   gap: 10px;
   padding: 31px 0 31px;
   ${(props) =>
-    props.isLoading &&
+    props.$isloading &&
     css`
       padding: 77px 0 450px;
     `}

@@ -8,7 +8,7 @@ import { OrientationType } from "../../../core/types/CardType";
 type PropsType = {
   width?: number;
   height?: number;
-  isdisabled?: boolean;
+  isdisabled: boolean;
   onClick: (orientation: OrientationType) => void;
   orientation: OrientationType;
 };
@@ -19,13 +19,13 @@ export const ChangeViewBtn: FC<PropsType> = ({
   orientation,
   ...rest
 }) => {
-  if (isdisabled) return <ChangeViewBtnStyled isdisabled={isdisabled} />;
+  if (isdisabled) return <ChangeViewBtnStyled $isdisabled={isdisabled} />;
 
   return (
     <ChangeViewBtnStyled>
       <SvgContainer
         btntype={"change"}
-        active={orientation === "vertical"}
+        $active={orientation === "vertical"}
         {...rest}
         onClick={() => onClick("vertical")}
       >
@@ -34,7 +34,7 @@ export const ChangeViewBtn: FC<PropsType> = ({
       <SvgContainer
         btntype={"change"}
         {...rest}
-        active={orientation === "horizontal"}
+        $active={orientation === "horizontal"}
         onClick={() => onClick("horizontal")}
       >
         <IconList />

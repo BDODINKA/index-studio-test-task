@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 type PropsType = {
   width?: number;
   height?: number;
-  active?: boolean;
+  $active?: boolean;
   btntype: "scroll" | "change" | "likeBtn";
 };
 
@@ -39,7 +39,7 @@ export const SvgContainer = styled.button<PropsType>`
         width: ${(props) => (props.width ? `${props.width}px` : "100%")};
 
         & rect {
-          stroke: ${(props) => (props.active ? "#00A0AB" : "#C7C7C7")};
+          stroke: ${(props) => (props.$active ? "#00A0AB" : "#C7C7C7")};
         }
 
         &:hover {
@@ -53,7 +53,7 @@ export const SvgContainer = styled.button<PropsType>`
     props.btntype === "likeBtn" &&
     css<PropsType>`
       & path {
-        fill: ${(props) => (props.active ? "#00A0AB" : "#C7C7C7")};
+        fill: ${(props) => (props.$active ? "#00A0AB" : "#C7C7C7")};
 
         &:hover {
           fill: #a4a4a4;
