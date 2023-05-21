@@ -7,6 +7,7 @@ export const useRouter = () => {
     const handleRouteChange = () => {
       setRoute(window.location.pathname);
     };
+
     window.addEventListener("popstate", handleRouteChange);
 
     return () => {
@@ -14,5 +15,5 @@ export const useRouter = () => {
     };
   }, []);
 
-  return { route };
+  return { route, setRoute };
 };

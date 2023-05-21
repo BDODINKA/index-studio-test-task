@@ -3,7 +3,7 @@ import { api } from "../api/api";
 import { CardType } from "../types/CardType";
 
 export const useFetchPost = () => {
-  const [post, setPost] = useState<CardType>();
+  const [post, setPost] = useState<CardType | null>(null);
   const [id, setId] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -15,7 +15,12 @@ export const useFetchPost = () => {
       setIsLoading(true);
       try {
         const res = await api.getPostId(id);
-        setPost(res);
+        if (res) {
+          setPost(res);
+        } else {
+          const err = new Error("Ошибка при загрузке");
+          setError(err.message);
+        }
       } catch (err) {
         if (err instanceof Error) {
           setError(err.message);

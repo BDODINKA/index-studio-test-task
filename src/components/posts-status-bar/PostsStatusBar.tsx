@@ -12,6 +12,7 @@ type PropsType = {
   onClickShowMore: () => void;
   finishPosts: boolean;
   onClickRetry: () => void;
+  isPosts: boolean;
 };
 
 export const PostsStatusBar: FC<PropsType> = ({
@@ -20,6 +21,7 @@ export const PostsStatusBar: FC<PropsType> = ({
   finishPosts,
   isloading,
   onClickRetry,
+  isPosts,
 }) => {
   if (isloading)
     return (
@@ -28,9 +30,9 @@ export const PostsStatusBar: FC<PropsType> = ({
       </PostsStatusBarStyled>
     );
 
-  if (error)
+  if (error || isPosts)
     return (
-      <PostsStatusBarStyled error={!!error}>
+      <PostsStatusBarStyled $error={!!error}>
         <ErrorStatusBarStyled children={error} />
         <BtnStyled
           children={"Повторить попытку"}

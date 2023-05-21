@@ -38,6 +38,10 @@ export const PostsPage: FC = () => {
     localStorage.setItem("orientation", orientation);
   };
 
+  if (posts?.length === 0 && !error) {
+    window.location.assign(`/404`);
+  }
+
   return (
     <>
       <HeaderStyled>
@@ -59,6 +63,7 @@ export const PostsPage: FC = () => {
         <SectionWrapperStyled>
           <PostsStatusBar
             isloading={isLoading}
+            isPosts={!posts}
             error={error}
             onClickShowMore={showMoreHandler}
             finishPosts={finishPages}

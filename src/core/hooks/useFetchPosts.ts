@@ -19,19 +19,23 @@ export const useFetchPosts = () => {
           api.getImg({ page: params.page, per_page: params.size }),
         ]);
 
-        const img = res[1].data.map((el) => el.urls.thumb);
+        if (res[0].items.length !== 0) {
+          const img = res[1].data.map((el) => el.urls.thumb);
 
-        const result = imgMultiplier(4, img, 5);
+          const result = imgMultiplier(4, img, 5);
 
-        const resPosts = res[0].items.map((el, i) => ({
-          ...el,
-          img: result[i],
-        }));
+          const resPosts = res[0].items.map((el, i) => ({
+            ...el,
+            img: result[i],
+          }));
 
-        if (posts) {
-          setPosts([...posts, ...resPosts]);
+          if (posts) {
+            setPosts([...posts, ...resPosts]);
+          } else {
+            setPosts(resPosts);
+          }
         } else {
-          setPosts(resPosts);
+          setPosts([]);
         }
 
         if (res[0].pages === params.page) {

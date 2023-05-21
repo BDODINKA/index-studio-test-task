@@ -10,14 +10,18 @@ import {
 import { ModalContainerStyled } from "../../components/modalContainer/ModalContainer.styled";
 
 export const PostPage = () => {
-  const { post, setId } = useFetchPost();
+  const { post, setId, error } = useFetchPost();
   const [data, setData] = useState<CardType>({} as CardType);
   const { params } = useParamsUrl();
 
   useEffect(() => {
     params.id && setId(params.id);
-    params.img && post && setData({ ...post, img: params.img });
+    post && setData({ ...post, img: params.img });
   }, [post, setId, params]);
+
+  if (error) {
+    window.location.assign(`/404`);
+  }
 
   return (
     <SectionStyled>
