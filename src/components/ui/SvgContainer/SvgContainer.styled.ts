@@ -30,6 +30,19 @@ export const SvgContainer = styled.button<PropsType>`
               height: ${(props) =>
                 props.height ? `${props.height}px` : "100%"};
               width: ${(props) => (props.width ? `${props.width}px` : "100%")};
+            }
+
+            @media (max-width: 768px) {
+              flex-wrap: wrap;
+              width: 25px;
+              height: 25px;
+              color: rgba(0, 0, 0, 0);
+              font-size: 0;
+              padding: 4px 6px;
+            }
+          }
+
+
           `}
   ${(props) =>
     props.btntype === "change" &&

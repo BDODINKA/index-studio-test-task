@@ -25,7 +25,8 @@ export const CardWrapper = styled.div<PropsType>`
     props.orientation === "horizontal" &&
     css<PropsType>`
       display: flex;
-      width: 472px;
+      max-width: 472px;
+      width: 100%;
       height: 134px;
     `}
   &:hover {
@@ -40,13 +41,19 @@ export const CardSwiperStyled = styled(Swiper)<PropsType, SwiperProps>`
       height: 260px;
       width: 100%;
     `}
-
   ${(props) =>
     props.orientation === "horizontal" &&
     css<PropsType>`
       height: 100%;
       width: 156px;
     `}
+  .swiper-pagination-bullet {
+    background: ${(props) => (props.$isdisabled ? "transparent" : "#c7c7c7")};
+  }
+
+  .swiper-pagination-bullet-active {
+    background: ${(props) => (props.$isdisabled ? "transparent" : "#00a0ab")};
+  }
 
   background: ${(props) => (props.$isdisabled ? "#EAEAEA" : "transparent")};
 
@@ -96,6 +103,11 @@ export const CardProduct = styled.div<PropsType>`
       & > :last-child {
         padding-top: 30px;
       }
+
+      @media (max-width: 768px) {
+        min-width: 200px;
+        width: 80%;
+      }
     `}
 `;
 
@@ -104,6 +116,10 @@ export const CardCostContainer = styled.div<PropsType>`
   justify-content: space-between;
   align-items: center;
   padding-right: 3px;
+
+  & h3:after {
+    content: " \\20BD";
+  }
 
   ${(props) =>
     props.$isdisabled &&
@@ -115,6 +131,12 @@ export const CardCostContainer = styled.div<PropsType>`
           props.orientation === "horizontal" ? "256px" : "165px"};
         height: 25px;
         visibility: hidden;
+      }
+
+      & h3 {
+        :after {
+          content: " \\20BD";
+        }
       }
 
       & > button {

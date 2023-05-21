@@ -11,12 +11,18 @@ import {
 import { Posts } from "../../components/posts/Posts";
 import { PostsStatusBar } from "../../components/posts-status-bar/PostsStatusBar";
 import { ScrollBtn } from "../../components/ui/ScrollBtn/ScrollBtn";
-import { useFetchData } from "../../core/hooks/useFetchData";
+import { useFetchPosts } from "../../core/hooks/useFetchPosts";
 import { OrientationType } from "../../core/types/CardType";
 
 export const PostsPage: FC = () => {
-  const { posts, finishPages, isLoading, error, showMoreHandler } =
-    useFetchData();
+  const {
+    posts,
+    finishPages,
+    isLoading,
+    error,
+    showMoreHandler,
+    retryHandler,
+  } = useFetchPosts();
 
   const [orientation, setOrientation] = useState<OrientationType>("vertical");
 
@@ -54,8 +60,9 @@ export const PostsPage: FC = () => {
           <PostsStatusBar
             isloading={isLoading}
             error={error}
-            onClick={showMoreHandler}
+            onClickShowMore={showMoreHandler}
             finishPosts={finishPages}
+            onClickRetry={retryHandler}
           />
         </SectionWrapperStyled>
       </SectionStyled>

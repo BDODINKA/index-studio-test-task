@@ -9,15 +9,17 @@ import { Spinner } from "../ui/Spinner/Spinner.styled";
 type PropsType = {
   isloading: boolean;
   error?: string;
-  onClick: () => void;
+  onClickShowMore: () => void;
   finishPosts: boolean;
+  onClickRetry: () => void;
 };
 
 export const PostsStatusBar: FC<PropsType> = ({
   error,
-  onClick,
+  onClickShowMore,
   finishPosts,
   isloading,
+  onClickRetry,
 }) => {
   if (isloading)
     return (
@@ -30,7 +32,12 @@ export const PostsStatusBar: FC<PropsType> = ({
     return (
       <PostsStatusBarStyled error={!!error}>
         <ErrorStatusBarStyled children={error} />
-        <BtnStyled children={"Повторить попытку"} width={164} height={32} />
+        <BtnStyled
+          children={"Повторить попытку"}
+          width={164}
+          height={32}
+          onClick={onClickRetry}
+        />
       </PostsStatusBarStyled>
     );
 
@@ -38,7 +45,7 @@ export const PostsStatusBar: FC<PropsType> = ({
 
   return (
     <PostsStatusBarStyled>
-      <BtnStyled children={"Показать еще"} onClick={onClick} />
+      <BtnStyled children={"Показать еще"} onClick={onClickShowMore} />
     </PostsStatusBarStyled>
   );
 };

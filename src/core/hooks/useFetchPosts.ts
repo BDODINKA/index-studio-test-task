@@ -3,7 +3,7 @@ import { api } from "../api/api";
 import { CardType } from "../types/CardType";
 import { imgMultiplier } from "../utils/imgMultiplier";
 
-export const useFetchData = () => {
+export const useFetchPosts = () => {
   const [finishPages, setFinishPages] = useState(false);
   const [posts, setPosts] = useState<CardType[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,7 +28,11 @@ export const useFetchData = () => {
           img: result[i],
         }));
 
-        setPosts(resPosts);
+        if (posts) {
+          setPosts([...posts, ...resPosts]);
+        } else {
+          setPosts(resPosts);
+        }
 
         if (res[0].pages === params.page) {
           setFinishPages(true);
@@ -50,11 +54,17 @@ export const useFetchData = () => {
     setParams({ ...params, page: params.page + 1 });
   };
 
+  const retryHandler = () => {
+    setError("");
+    setParams({ ...params, page: params.page });
+  };
+
   return {
     posts,
     isLoading,
     error,
     showMoreHandler,
+    retryHandler,
     finishPages,
   };
 };
